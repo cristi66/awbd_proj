@@ -1,16 +1,15 @@
 package com.awbd.repositories;
 
 import com.awbd.entities.Courses;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface CoursesRepository extends CrudRepository<Courses, Long> {
+public interface CoursesRepository extends JpaRepository<Courses, Long> {
 
     Optional<Courses> findById (long id);
 
-    Optional<Courses> findByName (String name);
+    Optional<Courses> findByTitle (String title);
 
     Courses save(Courses course);
-
 }

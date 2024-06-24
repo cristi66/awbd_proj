@@ -1,93 +1,85 @@
 package com.awbd.repositories;
 
-import org.junit.Test;
+import com.awbd.entities.Comments;
+import com.awbd.entities.Courses;
+import com.awbd.entities.Lessons;
+import com.awbd.entities.Users;
+import com.awbd.enums.CourseTypeEnum;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ActiveProfiles("mysql")
-public class CascadeTypesTest {
+@ActiveProfiles("h2")
+public class CascadeTypeTest {
 
     @Autowired
-    ProductRepository productRepository;
+    CoursesRepository coursesRepository;
 
     @Autowired
-    ParticipantRepository participantRepository;
+    UsersRepository usersRepository;
+    @Autowired
+    private CommentsRepository commentsRepository;
 
     @Test
-    public void updateDescription(){
-        Optional<Product> productOpt = productRepository.findById(1L);
-        Product product = productOpt.get();
-        product.getInfo().setDescription("Painting by Paul Cezanne");
-        product.setCurrency(Currency.USD);
+    public void updateContent(){
+        Optional<Courses> courseOpt = coursesRepository.findById(1L);
+        Courses course = courseOpt.get();
+        course.getComments().getFirst().setContent("Awesome learning curve");
+        course.setType(CourseTypeEnum.SELECT);
 
-        productRepository.save(product);
+        coursesRepository.save(course);
 
-        productOpt = productRepository.findById(1L);
-        product = productOpt.get();
-        assertEquals(Currency.USD, product.getCurrency());
-        assertEquals("Painting by Paul Cezanne", product.getInfo().getDescription());
-
+        courseOpt = coursesRepository.findById(1L);
+        course = courseOpt.get();
+        assertEquals(CourseTypeEnum.SELECT, course.getType());
+        assertEquals("Awesome learning curve", course.getComments().getFirst().getContent());
     }
 
     @Test
-    public void insertProduct(){
-        Product product = new Product();
-        product.setName("The Vase of Tulips");
-        product.setCurrency(Currency.USD);
+    public void insertCourse(){
+        Courses course = new Courses();
+        course.setTitle("Learn SELECT");
+        course.setType(CourseTypeEnum.SELECT);
+        course.setId(999L);
+        course.setDescription("Test description of course");
 
-        Info info = new Info();
-        info.setDescription("Painting by Paul Cezanne");
+        Optional<Users> userOpt = usersRepository.findById(1L);
+        Users user = userOpt.get();
 
-        product.setInfo(info);
+        List<Comments> comments = new ArrayList<>();
+        Comments comment = new Comments();
+        comment.setCourse(course);
+        comment.setUser(user);
+        comment.setContent("Makes it so easy to learn how to use SELECT");
 
-        productRepository.save(product);
+        comments.add(comment);
 
-        Optional<Product> productOpt = productRepository.findByName("The Vase of Tulips");
-        product = productOpt.get();
-        assertEquals(Currency.USD, product.getCurrency());
-        assertEquals("Painting by Paul Cezanne", product.getInfo().getDescription());
+        course.setComments(comments);
 
+        coursesRepository.save(course);
+
+        Optional<Courses> courseOpt = coursesRepository.findByTitle("Learn SELECT");
+        course = courseOpt.get();
+        assertEquals(CourseTypeEnum.SELECT, course.getType());
+        assertEquals("Makes it so easy to learn how to use SELECT", course.getComments().getFirst().getContent());
     }
-
 
     @Test
-    public void updateParticipant(){
-        Optional<Product> productOpt = productRepository.findById(2L);
+    public void deleteCourse(){
+        coursesRepository.deleteById(2L);
 
-        Participant participant = productOpt.get().getSeller();
-        participant.setFirstName("William");
-
-        participant.getProducts().forEach(prod -> {prod.setCurrency(Currency.GBP);});
-
-
-        Product product = new Product();
-        product.setName("The Vase of Tulips");
-        product.setCurrency(Currency.GBP);
-        participant.getProducts().add(product);
-
-        participantRepository.save(participant);
-
-        Optional<Participant> participantOpt = participantRepository.findById(2L);
-        participant = participantOpt.get();
-        participant.getProducts().forEach(prod -> {
-            assertEquals(Currency.GBP, prod.getCurrency());});
-
+        List<Comments> comments = commentsRepository.findByCourseId(2L);
+        assertTrue(comments.isEmpty());
     }
-
-
-    @Test
-    public void deleteParticipant(){
-        participantRepository.deleteById(2L);
-        Optional<Product> product = productRepository.findById(2L);
-
-        //orphan removal true
-        assertTrue(product.isEmpty());
-    }
-
 }

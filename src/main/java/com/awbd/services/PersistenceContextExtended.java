@@ -15,13 +15,13 @@ public class PersistenceContextExtended {
     @Transactional
     public Users updateInTransaction(Long id, String name) {
         Users updatedUser = entityManager.find(Users.class, id);
-        updatedUser.setName(name);
+        updatedUser.setUsername(name);
         entityManager.persist(updatedUser);
         return updatedUser;
     }
     public Users update(Long participantId, String name) {
         Users updatedParticipant = entityManager.find(Users.class, participantId);
-        updatedParticipant.setName(name);
+        updatedParticipant.setUsername(name);
         entityManager.persist(updatedParticipant);
         return updatedParticipant;
     }

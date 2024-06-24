@@ -1,6 +1,7 @@
 package com.awbd.entities;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -20,5 +21,5 @@ public class Enrollments {
     @ManyToOne
     private Courses course;
 
-    private LocalDate enrollmentDate;
+    private Date enrollmentDate;
 }

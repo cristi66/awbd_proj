@@ -1,6 +1,7 @@
 package com.awbd.entities;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -18,8 +19,10 @@ public class Assessments {
 
     private String description;
 
-    private LocalDate dueDate;
+    private String questions;
 
-    @ManyToOne
+    private String answers;
+
+    @OneToOne
     private Courses course;
 }

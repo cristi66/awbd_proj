@@ -1,7 +1,18 @@
 package com.awbd.repositories;
 
 import com.awbd.entities.Users;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UsersRepository extends CrudRepository<Users, Long> {
+import java.util.List;
+import java.util.Optional;
+
+public interface UsersRepository extends JpaRepository<Users, Long> {
+
+    List<Users> findByUsernameLike(String name);
+
+    List<Users> findByIdIn(List<Long> ids);
+
+    Optional<Users> findById(Long id);
+
+    Users save(Users user);
 }

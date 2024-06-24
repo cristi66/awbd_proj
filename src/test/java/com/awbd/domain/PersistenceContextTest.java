@@ -42,23 +42,23 @@ public class PersistenceContextTest {
     public void persistenceContextTransctionExtended() {
         persistenceContextTransction.updateInTransaction(1L, "William");
         Users userExtended = persistenceContextExtended.find(1L);
-        System.out.println(userExtended.getName());
-        assertEquals(userExtended.getName(), "William");
+        System.out.println(userExtended.getUsername());
+        assertEquals(userExtended.getUsername(), "William");
     }
 
     @Test
     public void persistenceContextExtendedExtended() {
         persistenceContextExtended.update(1L, "Snow");
         Users userExtended = persistenceContextExtended.find(1L);
-        System.out.println(userExtended.getName());
-        assertEquals(userExtended.getName(), "Snow");
+        System.out.println(userExtended.getUsername());
+        assertEquals(userExtended.getUsername(), "Snow");
     }
 
     @Test
     public void persistenceContextExtendedTransaction() {
         persistenceContextExtended.update(1L, "Will");
         Users userTransaction = persistenceContextTransction.find(1L);
-        System.out.println(userTransaction.getName());
-        assertNotEquals(userTransaction.getName(), "Will");
+        System.out.println(userTransaction.getUsername());
+        assertNotEquals(userTransaction.getUsername(), "Will");
     }
 }

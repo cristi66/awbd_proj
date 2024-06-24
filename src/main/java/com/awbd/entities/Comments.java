@@ -1,6 +1,7 @@
 package com.awbd.entities;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -17,10 +18,9 @@ public class Comments {
 
     private String content;
 
-    private LocalDate timestamp;
+    private Date timestamp;
 
     @ManyToOne
-    @Nullable
     private Courses course;
 
     @ManyToOne

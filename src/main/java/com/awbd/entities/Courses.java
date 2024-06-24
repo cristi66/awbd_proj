@@ -20,20 +20,30 @@ public class Courses {
 
     private String description;
 
+    private int levelRequired;
+
+    private int cost;
+
     private int totalProgress;
 
     @Enumerated(value = EnumType.STRING)
     private CourseTypeEnum type;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lessons> lessons;
 
-    @OneToMany(mappedBy = "course")
-    private List<Assessments> assessments;
+    @OneToOne(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Assessments assessments;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UsersProgress> userProgresses;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comments> comments;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Enrollments> enrollments;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ratings> ratings;
 }

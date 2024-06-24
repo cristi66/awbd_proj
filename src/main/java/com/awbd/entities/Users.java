@@ -1,6 +1,7 @@
 package com.awbd.entities;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -15,7 +16,7 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String username;
 
     private String email;
 
@@ -23,14 +24,22 @@ public class Users {
 
     private int level;
 
-    private LocalDate createdOn;
+    private int currency;
 
-    @OneToOne(mappedBy = "user")
-    private UsersProgress progress;
+    private Date createdOn;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UsersProgress> progresses;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comments> comments;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Enrollments> enrollments;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transactions> transactions;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ratings> ratings;
 }
