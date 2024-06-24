@@ -1,0 +1,1 @@
+INSERT INTO courses (total_progress, type, id, description, title) VALUES (2, 1, 1, 'TEST', 'Test Title');
