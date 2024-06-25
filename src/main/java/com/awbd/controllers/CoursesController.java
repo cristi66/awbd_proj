@@ -1,13 +1,13 @@
 package com.awbd.controllers;
 
 import com.awbd.dtos.CoursesDTO;
+import com.awbd.exceptions.ResourceNotFoundException;
 import com.awbd.services.CoursesService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -44,5 +44,14 @@ public class CoursesController {
     public String saveOrUpdate(@ModelAttribute CoursesDTO course){
         coursesService.updateCourseById(course.getId(), course);
         return "redirect:/courses";
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    public ModelAndView handlerNotFoundException(Exception exception){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.getModel().put("exception",exception);
+        modelAndView.setViewName("notFoundException");
+        return modelAndView;
     }
 }

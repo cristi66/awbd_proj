@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 @Data
@@ -15,6 +16,7 @@ public class UsersProgress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Min(value = 0, message = "The minimum progress percentage of a course is 0")
     private int progressPercentage;
 
     private Date lastAccessed;

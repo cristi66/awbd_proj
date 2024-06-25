@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>AWBD Auction</title>
@@ -29,6 +29,13 @@
                     <a class="nav-link btn-primary" th:href="@{'/product/form'}">
                         <i class="fas fa-plus-circle"></i> Sell
                     </a>
+                </li>
+                <li class="nav-item">
+                    <form id="logout-form" th:action="@{/logout}" method="post">
+                        <button type="submit" class="nav-link btn-primary">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </form>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto topnav">
@@ -68,8 +75,8 @@
             <td th:text="${course.levelRequired}">Level required</td>
             <td th:text="${course.cost}">Cost</td>
             <td th:text="${course.totalProgress}">Total progress</td>
-            <td><a href="#" th:href="@{'/courses/' + ${course.id}}"><i class="fa-solid fa-pen"></i></a></td>
-            <td><a href="#" th:href="@{'/courses/delete/' + ${course.id}}"><i class="fa-solid fa-trash"></i></a></td>
+            <td><a href="#" th:href="@{'/courses/' + ${course.id}}" sec:authorize="hasRole('ADMIN')"><i class="fa-solid fa-pen"></i></a></td>
+            <td><a href="#" th:href="@{'/courses/delete/' + ${course.id}}" sec:authorize="hasRole('ADMIN')"><i class="fa-solid fa-trash"></i></a></td>
         </tr>
 
     </table>

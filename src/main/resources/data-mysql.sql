@@ -1,7 +1,7 @@
-INSERT INTO Users (username, email, password, created_on) VALUES
-                                                              ('John Doe', 'john.doe@example.com', 'password123', '2024-06-04'),
-                                                              ('Jane Smith', 'jane.smith@example.com', 'securepass', '2024-06-04'),
-                                                              ('Alice Johnson', 'alice.johnson@example.com', 'mypassword', '2024-06-04');
+-- INSERT INTO Users (username, email, password, created_on) VALUES
+--                                                               ('John Doe', 'john.doe@example.com', 'password123', '2024-06-04'),
+--                                                               ('Jane Smith', 'jane.smith@example.com', 'securepass', '2024-06-04'),
+--                                                               ('Alice Johnson', 'alice.johnson@example.com', 'mypassword', '2024-06-04');
 
 
 INSERT INTO Courses (title, description, total_progress, type) VALUES

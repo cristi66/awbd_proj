@@ -2,6 +2,7 @@ package com.awbd.services;
 
 import com.awbd.dtos.CoursesDTO;
 import com.awbd.entities.Courses;
+import com.awbd.exceptions.ResourceNotFoundException;
 import com.awbd.repositories.CoursesRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
@@ -30,7 +31,7 @@ public class CoursesServiceImpl implements CoursesService {
         ).iterator().forEachRemaining(courses::add);
 
         return courses.stream()
-                .map(product -> modelMapper.map(product, CoursesDTO.class))
+                .map(course -> modelMapper.map(course, CoursesDTO.class))
                 .collect(Collectors.toList());
     }
 
@@ -38,7 +39,8 @@ public class CoursesServiceImpl implements CoursesService {
     public CoursesDTO findById(Long id) {
         Optional<Courses> courseOptional = coursesRepository.findById(id);
         if (!courseOptional.isPresent()) {
-            throw new RuntimeException("Course not found!");
+//            throw new RuntimeException("Course not found!");
+            throw new ResourceNotFoundException("Course " + id + " not found");
         }
         return modelMapper.map(courseOptional.get(), CoursesDTO.class);
     }
