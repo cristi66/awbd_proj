@@ -13,4 +13,5 @@ public interface CommentsRepository extends JpaRepository<Comments, Long> {
     void deleteByCourseId(@Param("course_id") Long Id);
 
     List<Comments> findByCourseId(Long id);
+
 }
