@@ -6,16 +6,35 @@ DROP TABLE IF EXISTS Lessons;
 DROP TABLE IF EXISTS Ratings;
 DROP TABLE IF EXISTS Transactions;
 DROP TABLE IF EXISTS Courses;
+DROP TABLE IF EXISTS User_authority;
 DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Authority;
 
-CREATE TABLE users (
+CREATE TABLE Users (
                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
                        username VARCHAR(255) NOT NULL,
                        email VARCHAR(255) NOT NULL,
                        password VARCHAR(255) NOT NULL,
                        level INT DEFAULT 0,
                        currency INT DEFAULT 0,
-                       created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                       created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                       enabled BOOLEAN NOT NULL DEFAULT true,
+                       account_non_expired BOOLEAN NOT NULL DEFAULT true,
+                       account_non_locked BOOLEAN NOT NULL DEFAULT true,
+                       credentials_non_expired BOOLEAN NOT NULL DEFAULT true
+);
+
+CREATE TABLE Authority(
+                          id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                          role VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE User_authority(
+                               user_id BIGINT,
+                               authority_id BIGINT,
+                               FOREIGN KEY (user_id) REFERENCES users(id),
+                               FOREIGN KEY (authority_id) REFERENCES authority(id),
+                               PRIMARY KEY (user_id, authority_id)
 );
 
 

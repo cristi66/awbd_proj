@@ -26,7 +26,7 @@ public class UsersRepositoryTest {
 
     @Test
     public void findByName() {
-        List<Users> users = usersRepository.findByUsernameLike("%oh%");
+        List<Users> users = usersRepository.findByUsernameLike("%ue%");
         Assertions.assertFalse(users.isEmpty());
         log.info("findByLastNameLike ...");
         users.forEach(user -> log.info(user.getUsername()));

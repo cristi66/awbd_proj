@@ -1,7 +1,11 @@
 INSERT INTO Users (username, email, password, created_on) VALUES
-                                                             ('John Doe', 'john.doe@example.com', 'password123', '2024-06-04'),
-                                                             ('Jane Smith', 'jane.smith@example.com', 'securepass', '2024-06-04'),
-                                                             ('Alice Johnson', 'alice.johnson@example.com', 'mypassword', '2024-06-04');
+                                                             ('admin', 'john.doe@example.com', '$2a$10$a2EM.vEfj6sAIPmyksBCEezMx0Yial4As55/PsdT2h2w8zIAqhxBG', '2024-06-04'),
+                                                             ('guest1', 'jane.smith@example.com', '$2a$10$a2EM.vEfj6sAIPmyksBCEezMx0Yial4As55/PsdT2h2w8zIAqhxBG', '2024-06-04'),
+                                                             ('guest2', 'alice.johnson@example.com', '$2a$10$a2EM.vEfj6sAIPmyksBCEezMx0Yial4As55/PsdT2h2w8zIAqhxBG', '2024-06-04');
+
+INSERT INTO Authority (role) VALUES ('ROLE_ADMIN'), ('ROLE_GUEST');
+
+INSERT INTO User_authority (user_id, authority_id) VALUES (1, 1), (2, 2), (3, 2);
 
 
 INSERT INTO Courses (title, description, total_progress, type) VALUES

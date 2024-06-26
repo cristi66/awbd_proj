@@ -13,8 +13,6 @@ import java.util.List;
 
 public interface EnrollmentsRepository extends JpaRepository<Enrollments, Long> {
 
-    List<Enrollments> findByIdIn(List<Long> ids);
-
     List<Enrollments> findAllByUserId(Long userId);
 
     Enrollments save(Enrollments enrollment);

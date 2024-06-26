@@ -14,14 +14,13 @@ import static org.junit.Assert.assertEquals;
 @ActiveProfiles("h2")
 public class EntityManagerTest {
 
-//    @Autowired
-    @PersistenceContext
+    @Autowired
     private EntityManager entityManager;
 
     @Test
     public void findCourse(){
         System.out.println(entityManager.getEntityManagerFactory());
         Courses courseFound = entityManager.find(Courses.class, 1L);
-        assertEquals(courseFound.getTitle(), "LEARN SELECT");
+        assertEquals(courseFound.getTitle(), "Java Programming");
     }
 }
