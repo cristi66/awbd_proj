@@ -1,5 +1,6 @@
 package com.awbd.dtos;
 
+import com.awbd.enums.TransactionTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,13 +12,9 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsersDTO {
-    private Long id;
-    private String username;
-    private String password;
-    private String email;
-    private int level;
-    private int currency;
+public class TransactionsDTO {
+    private int amount;
+    private String description;
     private Date createdOn;
-
+    private TransactionTypeEnum type;
 }

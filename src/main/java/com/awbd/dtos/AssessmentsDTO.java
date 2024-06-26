@@ -1,6 +1,5 @@
 package com.awbd.dtos;
 
-import com.awbd.enums.CourseTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,13 +9,9 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CoursesDTO {
-    private Long id;
+public class AssessmentsDTO {
     private String title;
     private String description;
-    private int levelRequired;
-    private int cost;
-    private int totalProgress;
-    private CourseTypeEnum type;
-
+    private String questions;
+    private String answers;
 }

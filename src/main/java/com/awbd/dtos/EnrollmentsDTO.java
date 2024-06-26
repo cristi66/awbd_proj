@@ -1,5 +1,7 @@
 package com.awbd.dtos;
 
+import com.awbd.entities.Courses;
+import com.awbd.entities.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,13 +13,8 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsersDTO {
-    private Long id;
-    private String username;
-    private String password;
-    private String email;
-    private int level;
-    private int currency;
-    private Date createdOn;
-
+public class EnrollmentsDTO {
+    private Date enrollmentDate;
+    private Courses course;
+    private Users user;
 }

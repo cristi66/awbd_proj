@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>AWBD Auction</title>
@@ -41,7 +41,7 @@
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" th:text="'Hello ' + ${username}"> Username </a>
+                    <a class="nav-link" th:text="'Hello ' + ${user.getUsername()}"> Username </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:text="'Lv. ' + ${user.getLevel()}"> 100 </a>
@@ -63,5 +63,34 @@
         </div>
     </nav>
 </div>
+<div class="container">
+    <table class="table table-hover ">
+        <thead class="thead-inverse">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Level required</th>
+            <th>Cost</th>
+            <th>Total progress</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tr th:each="myCourse, stat : ${myCourses}"
+            th:class="${stat.odd}? 'table-light':''">
+            <td th:text="${myCourse.id}">1</td>
+            <td th:text="${myCourse.title}">Product 1</td>
+            <td th:text="${myCourse.description}">Description</td>
+            <td th:text="${myCourse.levelRequired}">Level required</td>
+            <td th:text="${myCourse.cost}">Cost</td>
+            <td th:text="${myCourse.totalProgress}">Total progress</td>
+            <td><a href="#" th:href="@{'/courses/' + ${myCourse.id}}" sec:authorize="hasRole('ADMIN')"><i class="fa-solid fa-pen"></i></a></td>
+            <td><a href="#" th:href="@{'/courses/delete/' + ${myCourse.id}}" sec:authorize="hasRole('ADMIN')"><i class="fa-solid fa-trash"></i></a></td>
+        </tr>
+
+    </table>
+</div>
+
 </body>
 </html>

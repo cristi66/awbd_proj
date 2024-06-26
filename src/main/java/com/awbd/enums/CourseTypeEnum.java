@@ -1,6 +1,7 @@
 package com.awbd.enums;
 
 public enum CourseTypeEnum {
+    ALL ("ALL"),
     SELECT ("SELECT"),
     INSERT ("INSERT"),
     UPDATE ("UPDATE"),

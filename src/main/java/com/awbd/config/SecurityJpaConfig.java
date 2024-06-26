@@ -30,8 +30,8 @@ public class SecurityJpaConfig {
         return http
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/courses/delete/*").hasRole("ADMIN")
-                        .requestMatchers("/", "/webjars/**", "/login", "/register", "/resources/**").permitAll()
-                        .requestMatchers("/courses/*").hasRole("ADMIN")
+                        .requestMatchers("/webjars/**", "/login", "/users/register", "/resources/**").permitAll()
+                        .requestMatchers("/","/courses/*").hasAnyRole("ADMIN", "GUEST")
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userDetailsService)
@@ -40,6 +40,7 @@ public class SecurityJpaConfig {
                                 .loginPage("/login")
                                 .permitAll()
                                 .loginProcessingUrl("/perform_login")
+                                .successForwardUrl("/home")
                 )
                 .exceptionHandling(ex -> ex.accessDeniedPage("/access_denied"))
                 .build();

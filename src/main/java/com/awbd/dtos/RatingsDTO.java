@@ -11,13 +11,7 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsersDTO {
-    private Long id;
-    private String username;
-    private String password;
-    private String email;
-    private int level;
-    private int currency;
+public class RatingsDTO {
+    private int rating;
     private Date createdOn;
-
 }

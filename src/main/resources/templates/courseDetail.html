@@ -8,6 +8,14 @@
     <script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/webjars/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        .inline-container {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -20,32 +28,34 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto topnav">
                 <li class="nav-item">
-                    <a class="nav-link active" th:href="@{'/courses'}">Courses</a>
+                    <a class="nav-link" th:href="@{'/courses'}">Courses</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{'/categories'}">Categories</a>
+                    <a class="nav-link" th:href="@{'/courses/myCourses/' + ${user.getId()}}">My Courses</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link btn-primary" th:href="@{'/product/form'}">
-                        <i class="fas fa-plus-circle"></i> Sell
+                        <i class="fas fa-plus-circle"></i> Add course
                     </a>
                 </li>
             </ul>
-            <ul class="navbar-nav ms-auto topnav">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link btn-primary" th:href="@{'/login'}">
-                        <i class="fas fa-sign-in-alt"></i> Sign In
-                    </a>
+                    <a class="nav-link" th:text="'Hello ' + ${username}"> Username </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn-primary" th:href="@{'/participant/form'}">
-                        <i class="fas fa-user-plus"></i> Register
-                    </a>
+                    <a class="nav-link" th:text="'Lv. ' + ${user.getLevel()}"> 100 </a>
+                </li>
+                <li class="nav-item">
+                    <div class="inline-container">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <a class="nav-link" th:text="${user.getCurrency()}"> 100 </a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <form id="logout-form" th:action="@{/logout}" method="post">
                         <button type="submit" class="nav-link btn-primary">
-                            <i class="fas fa-sign-out-alt"></i> Logout
+                            <i class="fas fa-sign-out-alt"></i>
                         </button>
                     </form>
                 </li>
