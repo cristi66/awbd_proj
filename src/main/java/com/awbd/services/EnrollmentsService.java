@@ -13,4 +13,6 @@ public interface EnrollmentsService {
     List<EnrollmentsDTO> findAllByUserId(Long userId);
 
     EnrollmentsDTO save(EnrollmentsDTO enrollment);
+
+    void deleteByCourseIdAndUserId(Long courseId, Long userId);
 }

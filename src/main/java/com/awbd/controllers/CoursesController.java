@@ -122,7 +122,9 @@ public class CoursesController {
     }
 
     @RequestMapping("/{id}")
-    public String courseDetail(@PathVariable String id, Model model){
+    public String courseDetail(@PathVariable String id, Model model, HttpSession session){
+        Users modelUser = (Users) session.getAttribute("user");
+        model.addAttribute("user", modelUser);
         model.addAttribute("course", coursesService.findById(Long.valueOf(id)));
         return "courseDetail";
     }
@@ -148,6 +150,13 @@ public class CoursesController {
         enrollment.setEnrollmentDate(new Timestamp(new Date().getTime()));
         enrollmentsService.save(enrollment);
         return "redirect:/courses";
+    }
+
+    @PostMapping("/unenroll/{id}")
+    public String unenrollInCourse(@PathVariable String id, HttpSession session){
+        Users modelUser = (Users) session.getAttribute("user");
+        enrollmentsService.deleteByCourseIdAndUserId(Long.valueOf(id), modelUser.getId());
+        return "redirect:/courses/myCourses/" + modelUser.getId();
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)

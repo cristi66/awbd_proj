@@ -3,6 +3,7 @@ package com.awbd.controllers;
 import com.awbd.dtos.CoursesDTO;
 import com.awbd.entities.Courses;
 import com.awbd.services.CoursesService;
+import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
 
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +25,9 @@ public class CourseServiceControllerTest {
     Model model;
 
     @Mock
+    HttpSession session;
+
+    @Mock
     CoursesService coursesService;
 
     @InjectMocks
@@ -40,7 +44,7 @@ public class CourseServiceControllerTest {
 
         when(coursesService.findById(id)).thenReturn(courseTestDTO);
 
-        String viewName = coursesController.courseDetail(id.toString(), model);
+        String viewName = coursesController.courseDetail(id.toString(), model, session);
         assertEquals("courseDetail", viewName);
         verify(coursesService, times(1)).findById(id);
 

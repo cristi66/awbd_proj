@@ -45,7 +45,7 @@ public class EnrollmentsServiceImpl implements EnrollmentsService {
         enrollmentsRepository.findAllByUserId(userId).iterator().forEachRemaining(enrollmentsList::add);
 
         return enrollmentsList.stream()
-                .map(participant -> modelMapper.map(participant, EnrollmentsDTO.class))
+                .map(enrollment -> modelMapper.map(enrollment, EnrollmentsDTO.class))
                 .collect(Collectors.toList());
     }
 
@@ -53,5 +53,10 @@ public class EnrollmentsServiceImpl implements EnrollmentsService {
     public EnrollmentsDTO save(EnrollmentsDTO enrollment) {
         Enrollments savedEnrollment = enrollmentsRepository.save(modelMapper.map(enrollment, Enrollments.class));
         return modelMapper.map(savedEnrollment, EnrollmentsDTO.class);
+    }
+
+    @Override
+    public void deleteByCourseIdAndUserId(Long courseId, Long userId) {
+        enrollmentsRepository.deleteByCourseIdAndUserId(courseId, userId);
     }
 }
