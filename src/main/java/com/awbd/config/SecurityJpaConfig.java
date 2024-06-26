@@ -3,6 +3,7 @@ package com.awbd.config;
 import com.awbd.services.JpaUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,6 +22,7 @@ public class SecurityJpaConfig {
     }
 
     @Bean
+    @Primary
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
